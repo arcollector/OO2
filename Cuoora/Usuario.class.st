@@ -3,7 +3,10 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'nickname',
-		'password'
+		'password',
+		'followers',
+		'created_at',
+		'topicos'
 	],
 	#category : #Cuoora
 }
@@ -11,6 +14,18 @@ Class {
 { #category : #accessing }
 Usuario class >> crear: aNickname conPassword: aPassword [
 	^ self new nickname: aNickname ; password: aPassword ; yourself .
+]
+
+{ #category : #'as yet unclassified' }
+Usuario >> followers [
+	^ followers .
+]
+
+{ #category : #initialization }
+Usuario >> initialize [ 
+	followers := Set new .
+	topicos := Set new .
+	created_at := DateAndTime now .
 ]
 
 { #category : #accessing }
@@ -31,4 +46,19 @@ Usuario >> password [
 { #category : #accessing }
 Usuario >> password: aString [
 	password := aString .
+]
+
+{ #category : #'as yet unclassified' }
+Usuario >> seguirTopico: aTopico [
+	topicos add: aTopico .
+]
+
+{ #category : #'as yet unclassified' }
+Usuario >> seguirUsuario: aUsuario [
+	followers add: aUsuario .
+]
+
+{ #category : #'as yet unclassified' }
+Usuario >> topicos [
+	^ topicos .
 ]

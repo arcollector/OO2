@@ -1,6 +1,6 @@
 Class {
 	#name : #Respuesta,
-	#superclass : #Object,
+	#superclass : #PreguntaRespuestaPuntuada,
 	#instVars : [
 		'texto',
 		'created_at',
@@ -29,7 +29,9 @@ Respuesta class >> crear: aTexto deLaPregunta: aPregunta conUsuario: aUsuario [
 
 { #category : #initialization }
 Respuesta >> initialize [
+	super initialize .
 	created_at := DateAndTime now .
+	
 ]
 
 { #category : #accessing }

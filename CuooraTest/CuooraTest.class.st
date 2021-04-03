@@ -42,7 +42,6 @@ CuooraTest >> testAgregarPregunta [
 { #category : #tests }
 CuooraTest >> testAgregarRespuesta [
 	| u p r t |
-	self assert: cuoora respuestas size equals: 0.
 	u := Usuario crear: 'Nickname' conPassword: '123456'.
 	t := Topico crear: 'Topico' conDescripcion: 'Topico' .
 	p := Pregunta
@@ -52,11 +51,12 @@ CuooraTest >> testAgregarRespuesta [
 		conUsuario: u.
 	r := Respuesta
 		crear: 'You need to use Google before to ask!'
-		deLaPregunta: p
 		conUsuario: u.
-	cuoora agregarRespuesta: r.
-	self assert: cuoora respuestas size equals: 1.
-	self assert: (cuoora respuestas includes: r) equals: true
+	self assert: (p respuestas) size equals: 0.
+	p agregarRespuesta: r .
+	cuoora agregarPregunta: p .
+	self assert: (p respuestas) size equals: 1.
+	self assert: ((p respuestas) includes: r) equals: true
 ]
 
 { #category : #tests }
@@ -165,6 +165,45 @@ CuooraTest >> testObtenerPreguntasPorTopico [
 	self assert: (cuoora obtenerPreguntasPorTopico: t1) size equals: 3.
 	self assert: (cuoora obtenerPreguntasPorTopico: t2) size equals: 2.
 	self assert: (cuoora obtenerPreguntasPorTopico: t3) size equals: 1
+]
+
+{ #category : #'as yet unclassified' }
+CuooraTest >> testObtenerPreguntasRelevantesDeUsuario [
+	| u1 u2 u3 p1 p2 p3 t1 t2 t3 p |
+	u1 := Usuario crear: 'Test 1' conPassword: '123456'.
+	u2 := Usuario crear: 'Test 2' conPassword: '123456'.
+	u3 := Usuario crear: 'Test 3' conPassword: '123456'.
+	t1 := Topico crear: 'Topico 1' conDescripcion: 'Topico 1'.
+	t2 := Topico crear: 'Topico 2' conDescripcion: 'Topico 2'.
+	t3 := Topico crear: 'Topico 3' conDescripcion: 'Topico 3'.
+	p1 := Pregunta
+		crear: 'Question 1'
+		conDescripcion: 'Question 1'
+		conTopicos:
+			{t1}
+		conUsuario: u1.
+	p2 := Pregunta
+		crear: 'Question 2'
+		conDescripcion: 'Question 2'
+		conTopicos: {t2}
+		conUsuario: u2.
+	p3 := Pregunta
+		crear: 'Question 3'
+		conDescripcion: 'Question 3'
+		conTopicos: {t3}
+		conUsuario: u3.
+	cuoora agregarPregunta: p1 .
+	cuoora agregarPregunta: p2.
+	cuoora agregarPregunta: p3.	
+	cuoora agregarUsuario: u1 .
+	cuoora agregarUsuario: u2 .
+	cuoora agregarUsuario: u3 .
+	u1 seguirTopico: t1 .
+	u1 seguirUsuario: u3 .
+	p := cuoora obtenerPreguntasRelevantesDeUsuario: u1.
+	self assert: p size equals: 2 .
+	self assert: (p includes: p1) equals: true .
+	self assert: (p includes: p3) equals: true .
 ]
 
 { #category : #tests }

@@ -19,11 +19,6 @@ Cuoora >> agregarPregunta: aPregunta [
 ]
 
 { #category : #'as yet unclassified' }
-Cuoora >> agregarRespuesta: aRespuesta paraLaPregunta: aPregunta [
-	aPregunta agregarRespuesta: aRespuesta
-]
-
-{ #category : #'as yet unclassified' }
 Cuoora >> agregarUsuario: aUsuario [
 	usuarios add: aUsuario .
 ]
@@ -47,6 +42,22 @@ Cuoora >> obtenerPreguntasDeUsuario: aUsuario [
 { #category : #'as yet unclassified' }
 Cuoora >> obtenerPreguntasPorTopico: aTopico [
 	^ preguntas select: [ :each | each incluyeTopico: aTopico ] .
+]
+
+{ #category : #'as yet unclassified' }
+Cuoora >> obtenerPreguntasRelevantesDeUsuario: aUsuario [
+	| p1 p2 |
+	"Se considera relevante
+una pregunta cuando ésta pertenece a un tópico de interés para el usuario en cuestión o
+bien cuando fue realizada por alguno de los usuarios que sigue en la red social."
+	p1 := (preguntas
+		select: [ :each | each incluyeTopicos: aUsuario topicos ]) asSet.
+	p2 := (aUsuario followers
+		flatCollect:
+			[ :follower | preguntas select: [ :pregunta | pregunta perteneceA: follower ] ])
+		asSet.
+	p1 addAll: p2.
+	^ p1
 ]
 
 { #category : #'as yet unclassified' }

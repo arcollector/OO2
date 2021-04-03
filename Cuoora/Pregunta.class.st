@@ -1,6 +1,6 @@
 Class {
 	#name : #Pregunta,
-	#superclass : #Object,
+	#superclass : #PreguntaRespuestaPuntuada,
 	#instVars : [
 		'titulo',
 		'descripcion',
@@ -57,10 +57,17 @@ Pregunta >> incluyeTopico: aTopico [
 ]
 
 { #category : #accessing }
+Pregunta >> incluyeTopicos: aTopicos [
+	^ topicos includesAny: aTopicos .
+]
+
+{ #category : #accessing }
 Pregunta >> initialize [
+	super initialize .
 	respuestas := OrderedCollection new .
 	created_at := DateAndTime now .
 	topicos := Set new .
+	
 ]
 
 { #category : #accessing }
@@ -68,9 +75,19 @@ Pregunta >> obtenerRespuestasDeUsuario: aUsuario [
 	^ respuestas select: [ :each | each perteneceA: aUsuario ] .
 ]
 
+{ #category : #'as yet unclassified' }
+Pregunta >> obtenerRespuestasOrdenadasPorPuntaje [
+	^ respuestas sort: [ :a :b | a puntaje > b puntaje ] .
+]
+
 { #category : #accessing }
 Pregunta >> perteneceA: aUsuario [
 	^ usuario == aUsuario .
+]
+
+{ #category : #accessing }
+Pregunta >> respuestas [
+	^ respuestas .
 ]
 
 { #category : #accessing }
