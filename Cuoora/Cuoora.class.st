@@ -5,7 +5,7 @@ Class {
 		'preguntas',
 		'usuarios'
 	],
-	#category : #Cuoora
+	#category : #'Cuoora-Model'
 }
 
 { #category : #'as yet unclassified' }

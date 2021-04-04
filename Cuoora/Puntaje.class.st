@@ -6,7 +6,7 @@ Class {
 		'created_at',
 		'tipo'
 	],
-	#category : #Cuoora
+	#category : #'Cuoora-Model'
 }
 
 { #category : #accessing }

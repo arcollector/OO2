@@ -9,7 +9,7 @@ Class {
 		'created_at',
 		'topicos'
 	],
-	#category : #Cuoora
+	#category : #'Cuoora-Model'
 }
 
 { #category : #'as yet unclassified' }

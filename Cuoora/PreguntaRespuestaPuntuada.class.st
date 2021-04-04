@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'puntuacion'
 	],
-	#category : #Cuoora
+	#category : #'Cuoora-Model'
 }
 
 { #category : #accessing }

@@ -5,7 +5,7 @@ Class {
 		'nombre',
 		'descripcion'
 	],
-	#category : #Cuoora
+	#category : #'Cuoora-Model'
 }
 
 { #category : #'as yet unclassified' }

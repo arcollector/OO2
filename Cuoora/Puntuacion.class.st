@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'puntajes'
 	],
-	#category : #Cuoora
+	#category : #'Cuoora-Model'
 }
 
 { #category : #initialization }
