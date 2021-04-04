@@ -9,11 +9,12 @@ Class {
 
 { #category : #initialization }
 Puntuacion >> agregarPuntaje: aPuntaje [
-	|p|
-	p := puntajes reject: [ :each | each perteneceA: aPuntaje usuario ] .
-	p add: aPuntaje .
-	puntajes := p .
-
+	| elem |
+	elem := puntajes
+		detect: [ :each | each perteneceA: aPuntaje usuario ]
+		ifNone: [ nil ].
+	elem ifNotNil: [ puntajes remove: elem ].
+	puntajes add: aPuntaje
 ]
 
 { #category : #initialization }
