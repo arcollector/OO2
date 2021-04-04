@@ -18,15 +18,6 @@ Respuesta class >> crear: aTexto conUsuario: aUsuario [
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
-Respuesta class >> crear: aTexto deLaPregunta: aPregunta conUsuario: aUsuario [
-	^ self new
-		texto: aTexto;
-		pregunta: aPregunta;
-		usuario: aUsuario;
-		yourself
-]
-
 { #category : #initialization }
 Respuesta >> initialize [
 	super initialize .

@@ -80,9 +80,9 @@ CuooraTest >> testBorrarPregunta [
 		conDescripcion: 'Question 1'
 		conTopicos: {t}
 		conUsuario: u.
-	r := Respuesta crear: 'Answer 1' deLaPregunta: p conUsuario: u.
+	r := Respuesta crear: 'Answer 1' conUsuario: u.
 	cuoora agregarPregunta: p.
-	cuoora agregarRespuesta: r paraLaPregunta: p.
+   p agregarRespuesta: r .
 	cuoora borrarPregunta: p.
 	self assert: (cuoora obtenerPreguntasDeUsuario: u) size equals: 0.
 	self assert: (cuoora obtenerRespuestasDeUsuario: u) size equals: 0
@@ -268,13 +268,13 @@ CuooraTest >> testObtenerRespuestasDeUsuario [
 		conDescripcion: 'Question 1'
 		conTopicos: {t}
 		conUsuario: u1.
-	r1 := Respuesta crear: 'Answer 1' deLaPregunta: p conUsuario: u1.
-	r2 := Respuesta crear: 'Answer 2' deLaPregunta: p conUsuario: u1.
-	r3 := Respuesta crear: 'Answer 3' deLaPregunta: p conUsuario: u2.
+	r1 := Respuesta crear: 'Answer 1' conUsuario: u1.
+	r2 := Respuesta crear: 'Answer 2' conUsuario: u1.
+	r3 := Respuesta crear: 'Answer 3' conUsuario: u2.
 	cuoora agregarPregunta: p .
-	cuoora agregarRespuesta: r1 paraLaPregunta: p.
-	cuoora agregarRespuesta: r2 paraLaPregunta: p.
-	cuoora agregarRespuesta: r3 paraLaPregunta: p.
+	p agregarRespuesta: r1.
+	p agregarRespuesta: r2.
+	p agregarRespuesta: r3.
 	ru1 := cuoora obtenerRespuestasDeUsuario: u1.
 	self assert: ru1 size equals: 2.
 	ru2 := cuoora obtenerRespuestasDeUsuario: u2.

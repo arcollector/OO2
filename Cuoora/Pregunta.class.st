@@ -22,15 +22,6 @@ Pregunta class >> crear: aTitulo conDescripcion: aDescripcion conTopicos: aTopic
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
-Pregunta class >> crear: aTitulo conDescripcion: aDescripcion conUsuario: aUsuario [
-	^ self new
-		titulo: aTitulo;
-		descripcion: aDescripcion;
-		usuario: aUsuario;
-		yourself
-]
-
 { #category : #accessing }
 Pregunta >> agregarRespuesta: aRespuesta [
 	respuestas add: aRespuesta .
