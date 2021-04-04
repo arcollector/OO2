@@ -207,6 +207,56 @@ CuooraTest >> testObtenerPreguntasRelevantesDeUsuario [
 ]
 
 { #category : #tests }
+CuooraTest >> testObtenerPuntajeDeUsuario [
+	| u1 u2 u3 p1 p2 p3 r1 r2 r3 t |
+	u1 := Usuario crear: 'Test 1' conPassword: '123456'.
+	u2 := Usuario crear: 'Test 2' conPassword: '123456'.
+	u3 := Usuario crear: 'Test 3' conPassword: '123456'.
+	t := Topico crear: 'Topico' conDescripcion: 'Topico'.
+	p1 := Pregunta
+		crear: 'Question 1'
+		conDescripcion: 'Question 1'
+		conTopicos:
+			{t}
+		conUsuario: u1.
+	p2 := Pregunta
+		crear: 'Question 2'
+		conDescripcion: 'Question 2'
+		conTopicos: {t}
+		conUsuario: u2.
+	p3 := Pregunta
+		crear: 'Question 3'
+		conDescripcion: 'Question 3'
+		conTopicos: {t}
+		conUsuario: u3.
+	cuoora agregarPregunta: p1 .
+	cuoora agregarPregunta: p2.
+	cuoora agregarPregunta: p3.	
+	cuoora agregarUsuario: u1 .
+	cuoora agregarUsuario: u2 .
+	cuoora agregarUsuario: u3 .
+	r1 := Respuesta crear: 'Answer 1' conUsuario: u3.
+	r2 := Respuesta crear: 'Answer 2' conUsuario: u1.
+	r3 := Respuesta crear: 'Answer 3' conUsuario: u1.
+	p1 agregarRespuesta: r1.
+	p1 agregarRespuesta: r2.
+	p2 agregarRespuesta: r3.
+	self assert: (cuoora obtenerPuntajeDeUsuario: u1) equals: (20+50).
+	self assert: (cuoora obtenerPuntajeDeUsuario: u2) equals: (20).
+	self assert: (cuoora obtenerPuntajeDeUsuario: u3) equals: (20+50).
+	p1 like: u1 .
+	p1 like: u2 .
+	p1 dislike: u3 .
+	self assert: (cuoora obtenerPuntajeDeUsuario: u1) equals: (20+50+1).
+	p2 dislike: u1.
+	p2 dislike: u3.
+	self assert: (cuoora obtenerPuntajeDeUsuario: u2) equals: (18).
+	p3 like: u1 .
+	p3 dislike: u2.
+		self assert: (cuoora obtenerPuntajeDeUsuario: u3) equals: (20+50).
+]
+
+{ #category : #tests }
 CuooraTest >> testObtenerRespuestasDeUsuario [
 	| u1 u2 u3 p r1 r2 r3 t |
 	u1 := Usuario crear: 'Test 1' conPassword: '123456'.

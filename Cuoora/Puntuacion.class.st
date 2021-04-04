@@ -9,10 +9,10 @@ Class {
 
 { #category : #initialization }
 Puntuacion >> agregarPuntaje: aPuntaje [
-	| p |
-	p := puntajes detect: [ :each | each perteneceA: aPuntaje usuario ] ifNone: [ nil ] .
-	p ifNotNil: [ puntajes remove: p ] .
-	puntajes add: aPuntaje .
+	|p|
+	p := puntajes reject: [ :each | each perteneceA: aPuntaje usuario ] .
+	p add: aPuntaje .
+	puntajes := p .
 
 ]
 
@@ -29,6 +29,6 @@ Puntuacion >> initialize [
 
 { #category : #initialization }
 Puntuacion >> likes [
-	^ (puntajes select: [ :each | each esLike ]) size .
+	^ (puntajes select: [ :each | each esLike ]) size.
 
 ]

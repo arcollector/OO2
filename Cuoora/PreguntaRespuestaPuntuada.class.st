@@ -34,5 +34,5 @@ PreguntaRespuestaPuntuada >> likes [
 
 { #category : #accessing }
 PreguntaRespuestaPuntuada >> puntaje [
-	^ puntuacion likes - puntuacion dislikes .
+	^ self likes - self dislikes .
 ]

@@ -21,12 +21,12 @@ Puntaje class >> like: anUsuario [
 
 { #category : #'as yet unclassified' }
 Puntaje >> esDislike [
-	^ tipo == 'DISLIKE' .
+	^ tipo = 'DISLIKE' .
 ]
 
 { #category : #'as yet unclassified' }
 Puntaje >> esLike [
-	^ tipo == 'LIKE' .
+	^ tipo = 'LIKE' .
 ]
 
 { #category : #'as yet unclassified' }

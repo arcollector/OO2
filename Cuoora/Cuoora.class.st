@@ -61,6 +61,19 @@ bien cuando fue realizada por alguno de los usuarios que sigue en la red social.
 ]
 
 { #category : #'as yet unclassified' }
+Cuoora >> obtenerPuntajeDeUsuario: aUsuario [
+	| p1 p1p p2 p2p t |
+	p1 := preguntas select: [ :each | each perteneceA: aUsuario ].
+	"solo usamos las respuestas en la que el no hizo la pregunta, osea la de los otros usuarios"
+	p2 := (preguntas reject: [ :each | each perteneceA: aUsuario ])
+		flatCollect: [ :each | each obtenerRespuestasDeUsuario: aUsuario ].
+	p1p := p1 sumNumbers: [ :each | each puntaje ].
+	p2p := p2 sumNumbers: [ :each | each puntaje ].
+	t := p1 size * 20 + (p2 size * 50) + p1p + p2p.
+	^ t
+]
+
+{ #category : #'as yet unclassified' }
 Cuoora >> obtenerRespuestasDeUsuario: aUsuario [
 	^ preguntas flatCollect: [ :each | each obtenerRespuestasDeUsuario: aUsuario ].
 ]
