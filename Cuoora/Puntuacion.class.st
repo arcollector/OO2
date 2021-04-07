@@ -7,6 +7,11 @@ Class {
 	#category : #'Cuoora-Model'
 }
 
+{ #category : #'as yet unclassified' }
+Puntuacion class >> crear [ 
+	^ self new .
+]
+
 { #category : #initialization }
 Puntuacion >> agregarPuntaje: aPuntaje [
 	| elem |

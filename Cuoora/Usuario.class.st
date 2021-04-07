@@ -59,6 +59,11 @@ Usuario >> seguirUsuario: aUsuario [
 ]
 
 { #category : #'as yet unclassified' }
+Usuario >> tiene: aNickname conPassword: aPassword [
+	^ (nickname = aNickname) and: [ password = aPassword ] .
+]
+
+{ #category : #'as yet unclassified' }
 Usuario >> topicos [
 	^ topicos .
 ]

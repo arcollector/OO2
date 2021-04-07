@@ -28,6 +28,11 @@ Cuoora >> borrarPregunta: aPregunta [
 	preguntas remove: aPregunta ifAbsent: [ ] .
 ]
 
+{ #category : #'as yet unclassified' }
+Cuoora >> buscarUsuario: nickname conPassword: password [ 
+	^ usuarios detect: [ :each | each tiene: nickname conPassword: password ] ifNone: [ nil ].
+]
+
 { #category : #initialization }
 Cuoora >> initialize [
 	preguntas := OrderedCollection new .
