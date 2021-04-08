@@ -1,3 +1,12 @@
+"
+| app cuoora |
+
+cuoora := Cuoora soleInstance .
+cuoora agregarUsuario: (Usuario crear: 'test' conPassword: '123456') .
+
+app := WAAdmin register: LoginComponent asApplicationAt: 'cuoora' .
+app sessionClass: CuooraSession .
+"
 Class {
 	#name : #Cuoora,
 	#superclass : #Object,
@@ -5,12 +14,25 @@ Class {
 		'preguntas',
 		'usuarios'
 	],
+	#classInstVars : [
+		'soleInstance'
+	],
 	#category : #'Cuoora-Model'
 }
 
 { #category : #'as yet unclassified' }
+Cuoora class >> clearSoleInstance [
+	soleInstance := nil
+]
+
+{ #category : #'as yet unclassified' }
 Cuoora class >> crear [
  ^ self new .
+]
+
+{ #category : #'as yet unclassified' }
+Cuoora class >> soleInstance [
+	^ soleInstance ifNil: [ soleInstance := self new ]
 ]
 
 { #category : #'as yet unclassified' }
