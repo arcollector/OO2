@@ -8,7 +8,9 @@ Class {
 LatestQuestions >> renderContentOn: aCanvas [
 	aCanvas table:
 		[ self renderHeader: aCanvas ].
-	aCanvas horizontalRule
+	aCanvas horizontalRule .
+	aCanvas heading: [ aCanvas strong: 'Ultimas preguntas' ].
+	self renderQuestions: aCanvas .
 ]
 
 { #category : #rendering }
@@ -36,9 +38,69 @@ LatestQuestions >> renderLogoutNavigation: aCanvas [
 ]
 
 { #category : #hooks }
+LatestQuestions >> renderQuestion: each withCanvas: aCanvas [
+	aCanvas
+		table: [ self renderQuestionHeader: each withCanvas: aCanvas.
+			aCanvas
+				tableRow: [ self renderQuestionAuthor: each withCanvas: aCanvas.
+					self renderQuestionAnswersCount: each withCanvas: aCanvas ].
+			self renderQuestionLikesDisLikesCount: each withCanvas: aCanvas ].
+	^ aCanvas horizontalRule
+]
+
+{ #category : #hooks }
+LatestQuestions >> renderQuestionAnswersCount: each withCanvas: aCanvas [
+	^ aCanvas
+		tableData:
+			[ aCanvas paragraph: each totalRespuestas printString , ' respuestas' ]
+]
+
+{ #category : #hooks }
+LatestQuestions >> renderQuestionAuthor: each withCanvas: aCanvas [
+	aCanvas
+		tableData: [ aCanvas
+				paragraph: [ aCanvas text: 'Realizada por '.
+					aCanvas anchor
+						callback: [  ];
+						with: each usuario nickname ] ]
+]
+
+{ #category : #hooks }
+LatestQuestions >> renderQuestionHeader: each withCanvas: aCanvas [
+	aCanvas
+		tableRow: [ aCanvas tableData
+				colSpan: 2;
+				with: [ 
+					aCanvas heading level3 ; with: each titulo
+					] ]
+]
+
+{ #category : #hooks }
+LatestQuestions >> renderQuestionLikesDisLikesCount: each withCanvas: aCanvas [
+	^ aCanvas
+		tableRow: [ aCanvas
+				tableData: [ aCanvas paragraph: each likes printString , ' likes' ].
+			aCanvas
+				tableData: [ aCanvas paragraph: each dislikes printString , ' dislikes' ] ]
+]
+
+{ #category : #hooks }
+LatestQuestions >> renderQuestions: aCanvas [
+	| q |
+	q := Cuoora soleInstance
+		obtenerPreguntasRelevantesDeUsuario: self session usuario.
+	q isEmpty
+		ifTrue: [ aCanvas
+				paragraph: 'No se encontraron preguntas relevantes acorde a tu perfil de usuario' ]
+		ifFalse: [ q do:
+				[ :each | self renderQuestion: each withCanvas: aCanvas ] ]
+]
+
+{ #category : #hooks }
 LatestQuestions >> style [ 
 	^  '
 	table { width: 100% }
 	.heading {  width: 80% }
+	h3 { font-style: italic }
 	'
 ]

@@ -97,6 +97,16 @@ Pregunta >> topicos [
 ]
 
 { #category : #accessing }
+Pregunta >> totalRespuestas [
+	^ respuestas size .
+]
+
+{ #category : #accessing }
+Pregunta >> usuario [ 
+	^ usuario
+]
+
+{ #category : #accessing }
 Pregunta >> usuario: aUsuario [
 	usuario := aUsuario .
 ]
