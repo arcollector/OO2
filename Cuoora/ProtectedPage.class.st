@@ -28,3 +28,12 @@ ProtectedPage >> renderLogoutNavigation: aCanvas [
 									self answer ];
 								with: 'Log out' ] ] ]
 ]
+
+{ #category : #hooks }
+ProtectedPage >> style [ 
+	^  '
+	.text-align-right { text-align: right }
+	.badge { display: inline-block; font-style: italic; margin-right: 3px }
+	.badge:not(:last-child)::after { content: ", " }
+	'
+]
