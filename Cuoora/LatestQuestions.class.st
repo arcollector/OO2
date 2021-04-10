@@ -1,40 +1,15 @@
 Class {
 	#name : #LatestQuestions,
-	#superclass : #WAComponent,
+	#superclass : #ProtectedPage,
 	#category : #'Cuoora-UI'
 }
 
 { #category : #rendering }
 LatestQuestions >> renderContentOn: aCanvas [
-	aCanvas table: [ self renderHeader: aCanvas ].
-	aCanvas horizontalRule.
+	self renderHeader: aCanvas.
 	self renderNewQuestionButton: aCanvas.
 	aCanvas heading: [ aCanvas strong: 'Ultimas preguntas' ].
 	self renderQuestions: aCanvas
-]
-
-{ #category : #rendering }
-LatestQuestions >> renderHeader: aCanvas [
-	^ aCanvas
-		tableRow: [ aCanvas tableData
-				class: 'heading';
-				with: [ aCanvas heading: 'Cuoora' ].
-			aCanvas tableData:
-				[ self renderLogoutNavigation: aCanvas ] ]
-]
-
-{ #category : #rendering }
-LatestQuestions >> renderLogoutNavigation: aCanvas [
-	^ aCanvas
-		table: [ aCanvas
-				tableRow: [ aCanvas
-						tableData:
-							[ aCanvas paragraph: [ aCanvas strong: self session usuario nickname ] ].
-					aCanvas
-						tableData: [ aCanvas anchor
-								callback: [ self session limpiar.
-									self answer ];
-								with: 'Log out' ] ] ]
 ]
 
 { #category : #rendering }
@@ -49,7 +24,7 @@ LatestQuestions >> renderNewQuestionButton: aCanvas [
 { #category : #hooks }
 LatestQuestions >> renderQuestion: each withCanvas: aCanvas [
 	aCanvas
-		table: [ self renderQuestionHeader: each withCanvas: aCanvas.
+		table class: 'question' ; with: [ self renderQuestionHeader: each withCanvas: aCanvas.
 			self renderQuestionTopics: each withCanvas: aCanvas.
 			aCanvas
 				tableRow: [ self renderQuestionAuthor: each withCanvas: aCanvas.
@@ -136,11 +111,10 @@ LatestQuestions >> renderQuestions: aCanvas [
 { #category : #hooks }
 LatestQuestions >> style [ 
 	^  '
-	table { width: 100% }
-	.heading {  width: 80% }
-	h3 { font-style: italic }
-	.badge { display: inline-block; font-style: italic; margin-right: 3px }
-	.badge:not(:last-child)::after { content: ", " }
-	.text-align-right { text-align: right }
+	.question { width: 100% }
+	.question h3 { font-style: italic }
+	.question .badge { display: inline-block; font-style: italic; margin-right: 3px }
+	.question .badge:not(:last-child)::after { content: ", " }
+	.question .text-align-right { text-align: right }
 	'
 ]

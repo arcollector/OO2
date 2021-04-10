@@ -1,6 +1,6 @@
 Class {
 	#name : #NewQuestion,
-	#superclass : #WAComponent,
+	#superclass : #ProtectedPage,
 	#instVars : [
 		'titulo',
 		'descripcion',
@@ -26,19 +26,18 @@ NewQuestion >> createQuestion [
 
 { #category : #rendering }
 NewQuestion >> handleSubmit [
-	invalidTitle := false .
-	invalidDesription := false .
+	invalidTitle := false.
+	invalidDesription := false.
 	invalidTopics := false.
-
 	titulo isEmpty
 		ifTrue: [ invalidTitle := true ].
 	descripcion isEmpty
 		ifTrue: [ invalidDesription := true ].
 	topicos isEmpty
 		ifTrue: [ invalidTopics := true ].
-		
-   (invalidTitle not and: [invalidDesription not and: invalidTopics not]) ifTrue: [  self createQuestion ]
-		
+	(invalidTitle not
+		and: [ invalidDesription not and: invalidTopics not ])
+		ifTrue: [ self createQuestion ]
 ]
 
 { #category : #rendering }
@@ -69,11 +68,12 @@ NewQuestion >> renderActionsButtons: aCanvas [
 
 { #category : #rendering }
 NewQuestion >> renderContentOn: aCanvas [
+	self renderHeader: aCanvas .
 	aCanvas heading: 'Nueva pregunta'.
 	aCanvas horizontalRule.
 	aCanvas
 		form: [ aCanvas
-				table: [ self renderTitleInput: aCanvas.
+				table class: 'form' ; with: [ self renderTitleInput: aCanvas.
 					self renderDescriptionInput: aCanvas.
 					self renderTopicsInput: aCanvas.
 					self renderActionsButtons: aCanvas ] ]
@@ -131,11 +131,11 @@ NewQuestion >> renderTopicsInput: aCanvas [
 { #category : #hooks }
 NewQuestion >> style [ 	
 	^ '
-	table {  width: 60% }
-	td input[type="text"], td textarea, td select {  width: 100% }
-	td textarea { height: 150px }
-	td select {  height: 100px }
-	tfoot td { text-align: right }
-	strong {  font-style: italic; color: salmon }
+	.form {  width: 60% }
+	.form td input[type="text"], .form td textarea, .form td select {  width: 100% }
+	.form td textarea { height: 150px }
+	.form td select {  height: 100px }
+	.form tfoot td { text-align: right }
+	.form strong {  font-style: italic; color: salmon }
 	'
 ]
