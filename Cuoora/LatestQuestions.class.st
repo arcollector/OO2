@@ -41,10 +41,12 @@ LatestQuestions >> renderLogoutNavigation: aCanvas [
 LatestQuestions >> renderQuestion: each withCanvas: aCanvas [
 	aCanvas
 		table: [ self renderQuestionHeader: each withCanvas: aCanvas.
+			self renderQuestionTopics: each withCanvas: aCanvas.
 			aCanvas
 				tableRow: [ self renderQuestionAuthor: each withCanvas: aCanvas.
 					self renderQuestionAnswersCount: each withCanvas: aCanvas ].
-			self renderQuestionLikesDisLikesCount: each withCanvas: aCanvas ].
+			self renderQuestionLikesDisLikesCount: each withCanvas: aCanvas.
+			self renderQuestionLikeDislikeButtons: each withCanvas: aCanvas ].
 	^ aCanvas horizontalRule
 ]
 
@@ -76,12 +78,38 @@ LatestQuestions >> renderQuestionHeader: each withCanvas: aCanvas [
 ]
 
 { #category : #hooks }
+LatestQuestions >> renderQuestionLikeDislikeButtons: each withCanvas: aCanvas [
+	^ aCanvas
+		tableRow: [ aCanvas
+				tableData: [ aCanvas anchor
+						callback: [ each like: self session usuario ];
+						with: 'like' ].
+			aCanvas
+				tableData: [ aCanvas anchor
+						callback: [ each dislike: self session usuario ];
+						with: 'dislike' ] ]
+]
+
+{ #category : #hooks }
 LatestQuestions >> renderQuestionLikesDisLikesCount: each withCanvas: aCanvas [
 	^ aCanvas
 		tableRow: [ aCanvas
 				tableData: [ aCanvas paragraph: each likes printString , ' likes' ].
 			aCanvas
 				tableData: [ aCanvas paragraph: each dislikes printString , ' dislikes' ] ]
+]
+
+{ #category : #hooks }
+LatestQuestions >> renderQuestionTopics: each withCanvas: aCanvas [
+	aCanvas
+		tableRow: [ aCanvas tableData
+				colSpan: 2;
+				with: [ aCanvas text: 'Topicos: '.
+					each topicos
+						do: [ :topico | 
+							aCanvas span
+								class: 'badge';
+								with: topico nombre ] ] ]
 ]
 
 { #category : #hooks }
@@ -102,5 +130,7 @@ LatestQuestions >> style [
 	table { width: 100% }
 	.heading {  width: 80% }
 	h3 { font-style: italic }
+	.badge { display: inline-block; font-style: italic; margin-right: 3px }
+	.badge:not(:last-child)::after { content: ", " }
 	'
 ]
