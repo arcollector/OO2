@@ -6,11 +6,11 @@ Class {
 
 { #category : #rendering }
 LatestQuestions >> renderContentOn: aCanvas [
-	aCanvas table:
-		[ self renderHeader: aCanvas ].
-	aCanvas horizontalRule .
+	aCanvas table: [ self renderHeader: aCanvas ].
+	aCanvas horizontalRule.
+	self renderNewQuestionButton: aCanvas.
 	aCanvas heading: [ aCanvas strong: 'Ultimas preguntas' ].
-	self renderQuestions: aCanvas .
+	self renderQuestions: aCanvas
 ]
 
 { #category : #rendering }
@@ -35,6 +35,15 @@ LatestQuestions >> renderLogoutNavigation: aCanvas [
 								callback: [ self session limpiar.
 									self answer ];
 								with: 'Log out' ] ] ]
+]
+
+{ #category : #rendering }
+LatestQuestions >> renderNewQuestionButton: aCanvas [
+	aCanvas paragraph
+		class: 'text-align-right';
+		with: [ aCanvas anchor
+				callback: [ self call: NewQuestion new ];
+				with: '+ Hacer una nueva pregunta' ]
 ]
 
 { #category : #hooks }
@@ -132,5 +141,6 @@ LatestQuestions >> style [
 	h3 { font-style: italic }
 	.badge { display: inline-block; font-style: italic; margin-right: 3px }
 	.badge:not(:last-child)::after { content: ", " }
+	.text-align-right { text-align: right }
 	'
 ]

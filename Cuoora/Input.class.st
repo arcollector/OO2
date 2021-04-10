@@ -8,6 +8,11 @@ Class {
 }
 
 { #category : #evaluating }
+Input >> isEmpty [
+	^ value isEmpty 
+]
+
+{ #category : #evaluating }
 Input >> value [
 	^ value
 ]

@@ -15,7 +15,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'preguntas',
-		'usuarios'
+		'usuarios',
+		'topicos'
 	],
 	#classInstVars : [
 		'soleInstance'
@@ -41,6 +42,11 @@ Cuoora class >> soleInstance [
 { #category : #'as yet unclassified' }
 Cuoora >> agregarPregunta: aPregunta [
 	preguntas add: aPregunta .
+]
+
+{ #category : #'as yet unclassified' }
+Cuoora >> agregarTopico: aTopico [
+	topicos add: aTopico .
 ]
 
 { #category : #'as yet unclassified' }
@@ -74,6 +80,10 @@ Cuoora >> example1 [
 	self agregarUsuario: u1.
 	self agregarUsuario: u2.
 	self agregarUsuario: u3.
+	
+	self agregarTopico: t1 .
+	self agregarTopico: t2 .
+	self agregarTopico: t3 .
 	
 	u1 seguirTopico: t1 .
 	u1 seguirTopico: t2 .
@@ -128,6 +138,7 @@ Cuoora >> example1 [
 Cuoora >> initialize [
 	preguntas := OrderedCollection new .
 	usuarios := OrderedCollection new .
+	topicos := OrderedCollection new .
 ]
 
 { #category : #'as yet unclassified' }
@@ -177,6 +188,11 @@ Cuoora >> obtenerRespuestasDeUsuario: aUsuario [
 { #category : #initialization }
 Cuoora >> preguntas [
 	 ^ preguntas .
+]
+
+{ #category : #'as yet unclassified' }
+Cuoora >> topicos [
+	^ topicos .
 ]
 
 { #category : #initialization }

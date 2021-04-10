@@ -32,3 +32,8 @@ Topico >> nombre [
 Topico >> nombre: aString [
 	nombre := aString .
 ]
+
+{ #category : #accessing }
+Topico >> printString [ 
+	^ nombre .
+]
