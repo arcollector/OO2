@@ -33,6 +33,16 @@ Pregunta >> agregarTopicos: aCollection [
 ]
 
 { #category : #accessing }
+Pregunta >> compararFechaCreacionCon: aPregunta [
+	^ created_at > aPregunta created_at
+]
+
+{ #category : #accessing }
+Pregunta >> created_at [
+	^ created_at .
+]
+
+{ #category : #accessing }
 Pregunta >> descripcion [ 
 	^ descripcion .
 ]

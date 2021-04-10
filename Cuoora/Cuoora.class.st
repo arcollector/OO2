@@ -142,7 +142,7 @@ Cuoora >> obtenerPreguntasPorTopico: aTopico [
 
 { #category : #'as yet unclassified' }
 Cuoora >> obtenerPreguntasRelevantesDeUsuario: aUsuario [
-	| p1 p2 |
+	| p1 p2 p |
 	"Se considera relevante
 una pregunta cuando ésta pertenece a un tópico de interés para el usuario en cuestión o
 bien cuando fue realizada por alguno de los usuarios que sigue en la red social."
@@ -152,7 +152,8 @@ bien cuando fue realizada por alguno de los usuarios que sigue en la red social.
 		flatCollect:
 			[ :follower | preguntas select: [ :pregunta | pregunta perteneceA: follower ] ].
 	p1 addAll: p2.
-	^ p1 asSet
+	p := p1 asSet asOrderedCollection.
+	^ p sort: [ :a :b | a compararFechaCreacionCon: b ]
 ]
 
 { #category : #'as yet unclassified' }

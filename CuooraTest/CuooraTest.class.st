@@ -202,8 +202,8 @@ CuooraTest >> testObtenerPreguntasRelevantesDeUsuario [
 	u1 seguirUsuario: u3 .
 	p := cuoora obtenerPreguntasRelevantesDeUsuario: u1.
 	self assert: p size equals: 2 .
-	self assert: (p includes: p1) equals: true .
-	self assert: (p includes: p3) equals: true .
+	self assert: (p at: 1) equals: p3 .
+	self assert: (p at: 2) equals: p1 .
 ]
 
 { #category : #tests }
