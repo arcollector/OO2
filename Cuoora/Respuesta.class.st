@@ -1,6 +1,6 @@
 Class {
 	#name : #Respuesta,
-	#superclass : #PreguntaRespuestaPuntuada,
+	#superclass : #Publicacion,
 	#instVars : [
 		'texto',
 		'created_at',

@@ -11,22 +11,22 @@ Class {
 
 { #category : #accessing }
 Puntaje class >> dislike: anUsuario [
-	^ self new tipo: 'DISLIKE' ; usuario: anUsuario ; yourself .
+	^ self new tipo: false ; usuario: anUsuario ; yourself .
 ]
 
 { #category : #accessing }
 Puntaje class >> like: anUsuario [
-	^ self new tipo: 'LIKE' ; usuario: anUsuario ; yourself .
+	^ self new tipo: true ; usuario: anUsuario ; yourself .
 ]
 
 { #category : #'as yet unclassified' }
 Puntaje >> esDislike [
-	^ tipo = 'DISLIKE' .
+	^ tipo not .
 ]
 
 { #category : #'as yet unclassified' }
 Puntaje >> esLike [
-	^ tipo = 'LIKE' .
+	^ tipo .
 ]
 
 { #category : #'as yet unclassified' }
@@ -40,8 +40,8 @@ Puntaje >> perteneceA: aUsuario [
 ]
 
 { #category : #'as yet unclassified' }
-Puntaje >> tipo: aString [
-	tipo := aString .
+Puntaje >> tipo: aBool [
+	tipo := aBool .
 ]
 
 { #category : #'as yet unclassified' }
