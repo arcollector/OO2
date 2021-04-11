@@ -25,7 +25,7 @@ ProtectedPage >> renderLogoutNavigation: aCanvas [
 					aCanvas
 						tableData: [ aCanvas anchor
 								callback: [ self session limpiar.
-									self answer ];
+									self call: LoginComponent new ];
 								with: 'Log out' ] ] ]
 ]
 
