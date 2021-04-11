@@ -1,6 +1,6 @@
 Class {
 	#name : #NewQuestion,
-	#superclass : #ProtectedPage,
+	#superclass : #Formulario,
 	#instVars : [
 		'titulo',
 		'descripcion',
@@ -52,21 +52,6 @@ NewQuestion >> initialize [
 ]
 
 { #category : #rendering }
-NewQuestion >> renderActionsButtons: aCanvas [
-	^ aCanvas
-		tableFoot: [ aCanvas tableData
-				colSpan: 2;
-				with: [ aCanvas anchor
-						callback: [ self answer ];
-						with: 'Cancelar'.
-					aCanvas space.
-					aCanvas submitButton
-						callback:
-								[ self handleSubmit ];
-						with: 'Guardar' ] ]
-]
-
-{ #category : #rendering }
 NewQuestion >> renderContentOn: aCanvas [
 	self renderHeader: aCanvas .
 	aCanvas heading: 'Nueva pregunta'.
@@ -90,15 +75,6 @@ NewQuestion >> renderDescriptionInput: aCanvas [
 						value: descripcion value;
 						placeholder: 'Escriba aqui el desarrollo de su pregunta';
 						callback: [ :value | descripcion value: value ] ] ]
-]
-
-{ #category : #rendering }
-NewQuestion >> renderErrorMessage: aCanvas [
-	aCanvas
-		tableRow: [ aCanvas tableData
-				colSpan: 2;
-				with: [ aCanvas
-						paragraph: [ aCanvas strong: 'Este campo no puede estar vacio' ] ] ]
 ]
 
 { #category : #rendering }
@@ -126,16 +102,4 @@ NewQuestion >> renderTopicsInput: aCanvas [
 						list: Cuoora soleInstance topicos;
 						selected: topicos values;
 						callback: [ :values | topicos values: values ] ] ]
-]
-
-{ #category : #hooks }
-NewQuestion >> style [ 	
-	^ '
-	.form {  width: 60% }
-	.form td input[type="text"], .form td textarea, .form td select {  width: 100% }
-	.form td textarea { height: 150px }
-	.form td select {  height: 100px }
-	.form tfoot td { text-align: right }
-	.form strong {  font-style: italic; color: salmon }
-	'
 ]

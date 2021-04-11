@@ -47,6 +47,6 @@ QuestionSingle >> renderNewAnswerButton: aCanvas [
 	aCanvas paragraph
 		class: 'text-align-center';
 		with: [ aCanvas anchor
-				callback: [  ];
+				callback: [ self call: (NewAnswer crear: pregunta) ];
 				with: '+ Agregar una respuesta' ]
 ]

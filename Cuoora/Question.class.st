@@ -1,6 +1,6 @@
 Class {
 	#name : #Question,
-	#superclass : #ProtectedPage,
+	#superclass : #Formulario,
 	#category : #'Cuoora-UI'
 }
 

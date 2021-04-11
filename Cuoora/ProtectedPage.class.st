@@ -6,11 +6,15 @@ Class {
 
 { #category : #rendering }
 ProtectedPage >> renderHeader: aCanvas [
-	aCanvas
-		table style: 'width: 100%' ; with: [ aCanvas
+	aCanvas table
+		style: 'width: 100%';
+		with: [ aCanvas
 				tableRow: [ aCanvas tableData
 						style: 'width: 80%';
-						with: [ aCanvas heading: 'Cuoora' ].
+						with: [ aCanvas
+								heading: [ aCanvas anchor
+										callback: [ self call: LatestQuestions new ];
+										with: 'Cuoora' ] ].
 					aCanvas tableData: [ self renderLogoutNavigation: aCanvas ] ] ].
 	aCanvas horizontalRule
 ]
@@ -37,5 +41,13 @@ ProtectedPage >> style [
 	.text-italic { font-style: italic }
 	.badge { display: inline-block; font-style: italic; margin-right: 3px }
 	.badge:not(:last-child)::after { content: ", " }
+	
+	.form {  width: 60% }
+	.form td input[type="text"], .form td textarea, .form td select {  width: 100% }
+	.form td textarea { height: 150px }
+	.form td select {  height: 100px }
+	.form tfoot td { text-align: right }
+	.form strong {  font-style: italic; color: salmon }
+	
 	'
 ]
