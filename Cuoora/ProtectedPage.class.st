@@ -32,7 +32,9 @@ ProtectedPage >> renderLogoutNavigation: aCanvas [
 { #category : #hooks }
 ProtectedPage >> style [ 
 	^  '
+	.text-align-center { text-align: center }
 	.text-align-right { text-align: right }
+	.text-italic { font-style: italic }
 	.badge { display: inline-block; font-style: italic; margin-right: 3px }
 	.badge:not(:last-child)::after { content: ", " }
 	'

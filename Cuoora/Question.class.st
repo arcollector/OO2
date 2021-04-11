@@ -62,7 +62,7 @@ Question >> renderQuestionLikeDislikeButtons: each withCanvas: aCanvas [
 
 { #category : #hooks }
 Question >> renderQuestionLikesDisLikesCount: each withCanvas: aCanvas [
-	^ aCanvas
+	aCanvas
 		tableRow: [ aCanvas
 				tableData: [ aCanvas paragraph: each likes printString , ' likes' ].
 			aCanvas
