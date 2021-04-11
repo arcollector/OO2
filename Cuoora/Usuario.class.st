@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'nickname',
 		'password',
-		'followers',
+		'following',
 		'created_at',
 		'topicos'
 	],
@@ -18,17 +18,17 @@ Usuario class >> crear: aNickname conPassword: aPassword [
 
 { #category : #'as yet unclassified' }
 Usuario >> dejarUsuario: aUsuario [
-	followers remove: aUsuario
+	following remove: aUsuario
 ]
 
 { #category : #'as yet unclassified' }
-Usuario >> followers [
-	^ followers .
+Usuario >> following [
+	^ following .
 ]
 
 { #category : #initialization }
 Usuario >> initialize [ 
-	followers := Set new .
+	following := Set new .
 	topicos := Set new .
 	created_at := DateAndTime now .
 ]
@@ -60,12 +60,12 @@ Usuario >> seguirTopico: aTopico [
 
 { #category : #'as yet unclassified' }
 Usuario >> seguirUsuario: aUsuario [
-	followers add: aUsuario .
+	following add: aUsuario .
 ]
 
 { #category : #'as yet unclassified' }
 Usuario >> siguiendoUsuario: aUsuario [
-	^ followers includes: aUsuario .
+	^ following includes: aUsuario .
 ]
 
 { #category : #'as yet unclassified' }

@@ -27,10 +27,10 @@ UsuarioTest >> testCrearUsuario [
 { #category : #tests }
 UsuarioTest >> testDejarUsuario [
 	u1 seguirUsuario: u2.
-	self assert: u1 followers size equals: 1.
+	self assert: u1 following size equals: 1.
 	self should: [ u1 dejarUsuario: u3 ] raise: Error.
 	u1 dejarUsuario: u2.
-	self assert: u1 followers isEmpty.
+	self assert: u1 following isEmpty.
 ]
 
 { #category : #tests }
@@ -48,7 +48,7 @@ UsuarioTest >> testSeguirUsuario [
 	u1 seguirUsuario: u2 .
 	u1 seguirUsuario: u2 .
 	u1 seguirUsuario: u3 .
-	self assert: u1 followers size equals: 2.
+	self assert: u1 following size equals: 2.
 	self assert: (u1 siguiendoUsuario: u2).
 	self assert: (u1 siguiendoUsuario: u3).
 	

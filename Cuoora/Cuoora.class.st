@@ -159,7 +159,7 @@ una pregunta cuando ésta pertenece a un tópico de interés para el usuario en 
 bien cuando fue realizada por alguno de los usuarios que sigue en la red social."
 	p1 := preguntas
 		select: [ :each | each incluyeTopicos: aUsuario topicos ].
-	p2 := aUsuario followers
+	p2 := aUsuario following
 		flatCollect:
 			[ :follower | preguntas select: [ :pregunta | pregunta perteneceA: follower ] ].
 	p1 addAll: p2.
