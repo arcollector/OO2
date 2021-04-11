@@ -136,9 +136,9 @@ Cuoora >> example1 [
 
 { #category : #initialization }
 Cuoora >> initialize [
-	preguntas := OrderedCollection new .
-	usuarios := OrderedCollection new .
-	topicos := OrderedCollection new .
+	preguntas := Set new .
+	usuarios := Set new .
+	topicos := Set new .
 ]
 
 { #category : #'as yet unclassified' }

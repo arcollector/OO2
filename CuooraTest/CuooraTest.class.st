@@ -3,28 +3,31 @@ Class {
 	#superclass : #TestCase,
 	#instVars : [
 		'cuoora',
-		'pu1',
-		'pu2',
-		'pu3',
-		'ru1',
-		'ru2',
-		'ru3'
+		'u1',
+		'u2',
+		'u3',
+		't1',
+		't2',
+		't3'
 	],
 	#category : #CuooraTest
 }
 
 { #category : #running }
-CuooraTest >> setUp [ 
-	cuoora := Cuoora crear .
+CuooraTest >> setUp [
+	cuoora := Cuoora crear.
+	u1 := Usuario crear: 'Test 1' conPassword: '123456'.
+	u2 := Usuario crear: 'Test 2' conPassword: '123456'.
+	u3 := Usuario crear: 'Test 3' conPassword: '123456'.
+	t1 := Topico crear: 'Topico 1' conDescripcion: 'Topico 1'.
+	t2 := Topico crear: 'Topico 2' conDescripcion: 'Topico 2'.
+	t3 := Topico crear: 'Topico 3' conDescripcion: 'Topico 3'
 ]
 
 { #category : #tests }
 CuooraTest >> testAgregarPregunta [
-	| p u t1 t2 t3 |
-	u := Usuario crear: 'Nickname' conPassword: '123456'.
-	t1 := Topico crear: 'Topico 1' conDescripcion: 'Topico 1'.
-	t2 := Topico crear: 'Topico 2' conDescripcion: 'Topico 2'.
-	t3 := Topico crear: 'Topico 3' conDescripcion: 'Topico 3'.
+	| p |
+	u1 := Usuario crear: 'Nickname' conPassword: '123456'.
 	p := Pregunta
 		crear: 'Test'
 		conDescripcion: 'Test'
@@ -32,7 +35,7 @@ CuooraTest >> testAgregarPregunta [
 			{t1.
 			t2.
 			t3}
-		conUsuario: u.
+		conUsuario: u1.
 	self assert: cuoora preguntas size equals: 0.
 	cuoora agregarPregunta: p.
 	self assert: (cuoora preguntas includes: p) equals: true.
@@ -41,17 +44,15 @@ CuooraTest >> testAgregarPregunta [
 
 { #category : #tests }
 CuooraTest >> testAgregarRespuesta [
-	| u p r t |
-	u := Usuario crear: 'Nickname' conPassword: '123456'.
-	t := Topico crear: 'Topico' conDescripcion: 'Topico' .
+	| p r |
 	p := Pregunta
 		crear: 'Question'
 		conDescripcion: 'How to ask?'
-		conTopicos: { t }
-		conUsuario: u.
+		conTopicos: { t1 }
+		conUsuario: u1.
 	r := Respuesta
 		crear: 'You need to use Google before to ask!'
-		conUsuario: u.
+		conUsuario: u1.
 	self assert: (p respuestas) size equals: 0.
 	p agregarRespuesta: r .
 	cuoora agregarPregunta: p .
@@ -60,43 +61,55 @@ CuooraTest >> testAgregarRespuesta [
 ]
 
 { #category : #tests }
+CuooraTest >> testAgregarTopico [
+	self assert: cuoora topicos isEmpty .
+	cuoora agregarTopico: t1 .
+	cuoora agregarTopico: t1 .
+	cuoora agregarTopico: t2 .
+	self assert: cuoora topicos size equals: 2.
+	self assert: (cuoora topicos includes: t1 ).
+	self assert: (cuoora topicos includes: t2 ).
+]
+
+{ #category : #tests }
 CuooraTest >> testAgregarUsuario [
-	| u |
    self assert: (cuoora usuarios size) equals: 0 .
-	u := Usuario crear: 'Test' conPassword: '123456' .
-	cuoora agregarUsuario: u .
+	cuoora agregarUsuario: u1 .
 	self assert: (cuoora usuarios size) equals: 1 .
-	self assert: (cuoora usuarios includes: u ) equals: true .
+	self assert: (cuoora usuarios includes: u1).
 	
 ]
 
 { #category : #tests }
 CuooraTest >> testBorrarPregunta [
-	| u t p r |
-	u := Usuario crear: 'Test 1' conPassword: '123456'.
-	t := Topico crear: 'Topico 1' conDescripcion: 'Topico'.
+	| p r |
 	p := Pregunta
 		crear: 'Question 1'
 		conDescripcion: 'Question 1'
-		conTopicos: {t}
-		conUsuario: u.
-	r := Respuesta crear: 'Answer 1' conUsuario: u.
+		conTopicos: {t1}
+		conUsuario: u1.
+	r := Respuesta crear: 'Answer 1' conUsuario: u1.
 	cuoora agregarPregunta: p.
    p agregarRespuesta: r .
 	cuoora borrarPregunta: p.
-	self assert: (cuoora obtenerPreguntasDeUsuario: u) size equals: 0.
-	self assert: (cuoora obtenerRespuestasDeUsuario: u) size equals: 0
+	self assert: (cuoora obtenerPreguntasDeUsuario: u1) size equals: 0.
+	self assert: (cuoora obtenerRespuestasDeUsuario: u1) size equals: 0
+]
+
+{ #category : #tests }
+CuooraTest >> testBuscarUsuarioConPassword [
+	cuoora agregarUsuario: u1.
+	cuoora agregarUsuario: u2.
+	self assert: (cuoora buscarUsuario: u1 nickname conPassword: '123456') equals: u1.
+   self assert: (cuoora buscarUsuario: u2 nickname conPassword: '123456') equals: u2.
+	self assert: (cuoora buscarUsuario: u1 nickname conPassword: 'abc123') equals: nil.
+	self assert: (cuoora buscarUsuario: 'jorge' conPassword: '123456') equals: nil.
+	self assert: (cuoora buscarUsuario: '' conPassword: '') equals: nil.
 ]
 
 { #category : #tests }
 CuooraTest >> testObtenerPreguntasDeUsuario [
-	| u1 u2 u3 p1 p2 p3 t1 t2 t3 |
-	u1 := Usuario crear: 'Test' conPassword: '123456'.
-	u2 := Usuario crear: 'Prueba' conPassword: '123456'.
-	u3 := Usuario crear: 'TestPrueba' conPassword: '123456'.
-	t1 := Topico crear: 'Topico 1' conDescripcion: 'Topico 1'.
-	t2 := Topico crear: 'Topico 2' conDescripcion: 'Topico 2'.
-	t3 := Topico crear: 'Topico 3' conDescripcion: 'Topico 3'.
+	| p1 p2 p3 pu1 pu2 pu3 |
 	p1 := Pregunta
 		crear: 'Question 1'
 		conDescripcion: 'Question 1'
@@ -134,11 +147,7 @@ CuooraTest >> testObtenerPreguntasDeUsuario [
 
 { #category : #tests }
 CuooraTest >> testObtenerPreguntasPorTopico [
-	| u1 p1 p2 p3 t1 t2 t3 |
-	u1 := Usuario crear: 'Test' conPassword: '123456'.
-	t1 := Topico crear: 'Topico 1' conDescripcion: 'Topico 1'.
-	t2 := Topico crear: 'Topico 2' conDescripcion: 'Topico 2'.
-	t3 := Topico crear: 'Topico 3' conDescripcion: 'Topico 3'.
+	| p1 p2 p3 |
 	p1 := Pregunta
 		crear: 'Question 1'
 		conDescripcion: 'Question 1'
@@ -169,13 +178,7 @@ CuooraTest >> testObtenerPreguntasPorTopico [
 
 { #category : #'as yet unclassified' }
 CuooraTest >> testObtenerPreguntasRelevantesDeUsuario [
-	| u1 u2 u3 p1 p2 p3 t1 t2 t3 p |
-	u1 := Usuario crear: 'Test 1' conPassword: '123456'.
-	u2 := Usuario crear: 'Test 2' conPassword: '123456'.
-	u3 := Usuario crear: 'Test 3' conPassword: '123456'.
-	t1 := Topico crear: 'Topico 1' conDescripcion: 'Topico 1'.
-	t2 := Topico crear: 'Topico 2' conDescripcion: 'Topico 2'.
-	t3 := Topico crear: 'Topico 3' conDescripcion: 'Topico 3'.
+	| p1 p2 p3 p |
 	p1 := Pregunta
 		crear: 'Question 1'
 		conDescripcion: 'Question 1'
@@ -208,25 +211,21 @@ CuooraTest >> testObtenerPreguntasRelevantesDeUsuario [
 
 { #category : #tests }
 CuooraTest >> testObtenerPuntajeDeUsuario [
-	| u1 u2 u3 p1 p2 p3 r1 r2 r3 t |
-	u1 := Usuario crear: 'Test 1' conPassword: '123456'.
-	u2 := Usuario crear: 'Test 2' conPassword: '123456'.
-	u3 := Usuario crear: 'Test 3' conPassword: '123456'.
-	t := Topico crear: 'Topico' conDescripcion: 'Topico'.
+	| p1 p2 p3 r1 r2 r3 |
 	p1 := Pregunta
 		crear: 'Question 1'
 		conDescripcion: 'Question 1'
-		conTopicos: {t}
+		conTopicos: {t1}
 		conUsuario: u1.
 	p2 := Pregunta
 		crear: 'Question 2'
 		conDescripcion: 'Question 2'
-		conTopicos: {t}
+		conTopicos: {t1}
 		conUsuario: u2.
 	p3 := Pregunta
 		crear: 'Question 3'
 		conDescripcion: 'Question 3'
-		conTopicos: {t}
+		conTopicos: {t1}
 		conUsuario: u3.
 	cuoora agregarPregunta: p1.
 	cuoora agregarPregunta: p2.
@@ -257,15 +256,11 @@ CuooraTest >> testObtenerPuntajeDeUsuario [
 
 { #category : #tests }
 CuooraTest >> testObtenerRespuestasDeUsuario [
-	| u1 u2 u3 p r1 r2 r3 t |
-	u1 := Usuario crear: 'Test 1' conPassword: '123456'.
-	u2 := Usuario crear: 'Test 2' conPassword: '123456'.
-	u3 := Usuario crear: 'Test 3' conPassword: '123456'.
-	t := Topico crear: 'Topico 1' conDescripcion: 'Topico'.
+	| p r1 r2 r3 ru1 ru2 ru3 |
 	p := Pregunta
 		crear: 'Question 1'
 		conDescripcion: 'Question 1'
-		conTopicos: {t}
+		conTopicos: {t1}
 		conUsuario: u1.
 	r1 := Respuesta crear: 'Answer 1' conUsuario: u1.
 	r2 := Respuesta crear: 'Answer 2' conUsuario: u1.

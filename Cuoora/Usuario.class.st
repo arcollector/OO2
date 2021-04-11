@@ -43,14 +43,14 @@ Usuario >> nickname: aString [
 	nickname := aString .
 ]
 
-{ #category : #accessing }
+{ #category : #'as yet unclassified' }
 Usuario >> password [ 
 	^ password .
 ]
 
-{ #category : #accessing }
-Usuario >> password: aString [
-	password := aString .
+{ #category : #'as yet unclassified' }
+Usuario >> password: aPassword [
+	password := aPassword .
 ]
 
 { #category : #'as yet unclassified' }
