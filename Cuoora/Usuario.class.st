@@ -17,6 +17,11 @@ Usuario class >> crear: aNickname conPassword: aPassword [
 ]
 
 { #category : #'as yet unclassified' }
+Usuario >> dejarUsuario: aUsuario [
+	followers remove: aUsuario
+]
+
+{ #category : #'as yet unclassified' }
 Usuario >> followers [
 	^ followers .
 ]
@@ -56,6 +61,11 @@ Usuario >> seguirTopico: aTopico [
 { #category : #'as yet unclassified' }
 Usuario >> seguirUsuario: aUsuario [
 	followers add: aUsuario .
+]
+
+{ #category : #'as yet unclassified' }
+Usuario >> siguiendoUsuario: aUsuario [
+	^ followers includes: aUsuario .
 ]
 
 { #category : #'as yet unclassified' }

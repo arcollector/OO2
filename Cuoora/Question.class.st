@@ -30,7 +30,7 @@ Question >> renderQuestionAuthor: each withCanvas: aCanvas [
 		tableData: [ aCanvas
 				paragraph: [ aCanvas text: 'Realizada por '.
 					aCanvas anchor
-						callback: [  ];
+						callback: [ self call: (UserSingle crear: each usuario) ];
 						with: each usuario nickname ] ]
 ]
 
