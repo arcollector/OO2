@@ -19,14 +19,22 @@ QuestionSingle >> pregunta: aPregunta [
 
 { #category : #rendering }
 QuestionSingle >> renderAnswer: each withCanvas: aCanvas [
-	aCanvas heading
-		level3;
-		with: 'Respuesta de ' , each usuario nickname.
+	self renderAnswerAuthor: each withCanvas: aCanvas.
 	aCanvas paragraph: each texto.
 	aCanvas
 		table: [ self renderQuestionLikesDisLikesCount: each withCanvas: aCanvas.
 			self renderQuestionLikeDislikeButtons: each withCanvas: aCanvas ].
 	^ aCanvas horizontalRule
+]
+
+{ #category : #rendering }
+QuestionSingle >> renderAnswerAuthor: each withCanvas: aCanvas [
+	aCanvas heading
+		level3;
+		with: [ aCanvas text: 'Respuesta de '.
+			aCanvas anchor
+				callback: [ self call: (UserSingle crear: each usuario) ];
+				with: each usuario nickname ]
 ]
 
 { #category : #rendering }
