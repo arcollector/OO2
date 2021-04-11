@@ -9,28 +9,35 @@ ProtectedPage >> renderHeader: aCanvas [
 	aCanvas table
 		style: 'width: 100%';
 		with: [ aCanvas
-				tableRow: [ aCanvas tableData
-						style: 'width: 80%';
-						with: [ aCanvas
-								heading: [ aCanvas anchor
-										callback: [ self call: LatestQuestions new ];
-										with: 'Cuoora' ] ].
-					aCanvas tableData: [ self renderLogoutNavigation: aCanvas ] ] ].
+				tableRow: [ self renderHeaderTitle: aCanvas.
+						self renderLogoutNavigation: aCanvas ] ].
 	aCanvas horizontalRule
+]
+
+{ #category : #rendering }
+ProtectedPage >> renderHeaderTitle: aCanvas [
+	aCanvas tableData
+		style: 'width: 80%';
+		with: [ aCanvas
+				heading: [ aCanvas anchor
+						callback: [ self call: LatestQuestions new ];
+						with: 'Cuoora' ] ]
 ]
 
 { #category : #rendering }
 ProtectedPage >> renderLogoutNavigation: aCanvas [
 	aCanvas
-		table style: 'width: 100%' ; with: [ aCanvas
-				tableRow: [ aCanvas
-						tableData:
-							[ aCanvas paragraph: [ aCanvas strong: self session usuario nickname ] ].
-					aCanvas
-						tableData: [ aCanvas anchor
-								callback: [ self session limpiar.
-									self call: LoginComponent new ];
-								with: 'Log out' ] ] ]
+		tableData: [ aCanvas table
+				style: 'width: 100%';
+				with: [ aCanvas
+						tableRow: [ aCanvas
+								tableData:
+									[ aCanvas paragraph: [ aCanvas strong: self session usuario nickname ] ].
+							aCanvas
+								tableData: [ aCanvas anchor
+										callback: [ self session limpiar.
+											self call: LoginComponent new ];
+										with: 'Log out' ] ] ] ]
 ]
 
 { #category : #hooks }
@@ -49,5 +56,6 @@ ProtectedPage >> style [
 	.form tfoot td { text-align: right }
 	.form strong {  font-style: italic; color: salmon }
 	
+	.alert { background: khaki; padding: 3px }
 	'
 ]

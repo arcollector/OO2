@@ -9,6 +9,7 @@ LatestQuestions >> renderContentOn: aCanvas [
 	self renderHeader: aCanvas.
 	self renderNewQuestionButton: aCanvas.
 	aCanvas heading: [ aCanvas strong: 'Ultimas preguntas' ].
+	aCanvas paragraph class: 'alert' ; with: 'Se muestran preguntas que son relevantes a tu perfil usuario (topicos y usuarios que sigues)'.
 	self renderQuestions: aCanvas
 ]
 

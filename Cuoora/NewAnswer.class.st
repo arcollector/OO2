@@ -16,10 +16,10 @@ NewAnswer class >> crear: aPregunta [
 
 { #category : #rendering }
 NewAnswer >> createAnswer [
-	|r|
-	r := Respuesta crear: texto value conUsuario: self session usuario .
-	pregunta agregarRespuesta: r .
-	self answer .
+	| r |
+	r := Respuesta crear: texto value conUsuario: self session usuario.
+	pregunta agregarRespuesta: r.
+	self answer
 ]
 
 { #category : #rendering }
@@ -27,8 +27,8 @@ NewAnswer >> handleSubmit [
 	invalidTexto := false.
 	texto isEmpty
 		ifTrue: [ invalidTexto := true ].
-	invalidTexto not
-		ifTrue: [ self createAnswer ]
+	invalidTexto
+		ifFalse: [ self createAnswer ]
 ]
 
 { #category : #rendering }
@@ -67,7 +67,9 @@ NewAnswer >> renderForm: aCanvas [
 
 { #category : #rendering }
 NewAnswer >> renderFormTextInput: aCanvas [
-	^ aCanvas
+	invalidTexto
+		ifTrue: [ self renderErrorMessage: aCanvas ].
+	aCanvas
 		tableRow: [ aCanvas
 				tableData: [ aCanvas span
 						class: 'text-italic';

@@ -53,15 +53,10 @@ NewQuestion >> initialize [
 
 { #category : #rendering }
 NewQuestion >> renderContentOn: aCanvas [
-	self renderHeader: aCanvas .
+	self renderHeader: aCanvas.
 	aCanvas heading: 'Nueva pregunta'.
 	aCanvas horizontalRule.
-	aCanvas
-		form: [ aCanvas
-				table class: 'form' ; with: [ self renderTitleInput: aCanvas.
-					self renderDescriptionInput: aCanvas.
-					self renderTopicsInput: aCanvas.
-					self renderActionsButtons: aCanvas ] ]
+	self renderForm: aCanvas
 ]
 
 { #category : #rendering }
@@ -75,6 +70,17 @@ NewQuestion >> renderDescriptionInput: aCanvas [
 						value: descripcion value;
 						placeholder: 'Escriba aqui el desarrollo de su pregunta';
 						callback: [ :value | descripcion value: value ] ] ]
+]
+
+{ #category : #rendering }
+NewQuestion >> renderForm: aCanvas [
+	aCanvas
+		form: [ aCanvas table
+				class: 'form';
+				with: [ self renderTitleInput: aCanvas.
+					self renderDescriptionInput: aCanvas.
+					self renderTopicsInput: aCanvas.
+					self renderActionsButtons: aCanvas ] ]
 ]
 
 { #category : #rendering }
