@@ -75,12 +75,13 @@ NewQuestion >> renderDescriptionInput: aCanvas [
 { #category : #rendering }
 NewQuestion >> renderForm: aCanvas [
 	aCanvas
-		form: [ aCanvas table
-				class: 'form';
-				with: [ self renderTitleInput: aCanvas.
-					self renderDescriptionInput: aCanvas.
-					self renderTopicsInput: aCanvas.
-					self renderActionsButtons: aCanvas ] ]
+		form: [ aCanvas
+				fieldSet: [ aCanvas table
+						class: 'form';
+						with: [ self renderTitleInput: aCanvas.
+							self renderDescriptionInput: aCanvas.
+							self renderTopicsInput: aCanvas.
+							self renderActionsButtons: aCanvas ] ] ]
 ]
 
 { #category : #rendering }

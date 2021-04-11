@@ -58,11 +58,12 @@ NewAnswer >> renderContentOn: aCanvas [
 { #category : #rendering }
 NewAnswer >> renderForm: aCanvas [
 	aCanvas
-		form: [ aCanvas table
-				class: 'form';
-				with: [ self renderFormTextInput: aCanvas.
-					self renderActionsButtons: aCanvas ] ].
-			aCanvas horizontalRule .
+		form: [ aCanvas
+				fieldSet: [ aCanvas table
+						class: 'form';
+						with: [ self renderFormTextInput: aCanvas.
+							self renderActionsButtons: aCanvas ] ] ].
+	aCanvas horizontalRule
 ]
 
 { #category : #rendering }
