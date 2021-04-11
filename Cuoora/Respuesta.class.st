@@ -4,7 +4,6 @@ Class {
 	#instVars : [
 		'texto',
 		'created_at',
-		'pregunta',
 		'usuario'
 	],
 	#category : #'Cuoora-Model'
@@ -28,16 +27,6 @@ Respuesta >> initialize [
 { #category : #accessing }
 Respuesta >> perteneceA: aUsuario [
 	^ usuario == aUsuario .
-]
-
-{ #category : #accessing }
-Respuesta >> pregunta [ 
-	^ pregunta .
-]
-
-{ #category : #accessing }
-Respuesta >> pregunta: aPregunta [
-	pregunta := aPregunta .
 ]
 
 { #category : #accessing }
