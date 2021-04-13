@@ -1,13 +1,15 @@
 "
+""para iniciar""
 | app cuoora |
 
 cuoora := Cuoora soleInstance .
-cuoora example1 .
+cuoora example2 .
 
 app := WAAdmin register: LoginComponent asApplicationAt: 'cuoora' .
 app sessionClass: CuooraSession .
 
 
+""para limpiar""
 Cuoora clearSoleInstance .
 "
 Class {
@@ -132,6 +134,51 @@ Cuoora >> example1 [
 	
 	r31 := Respuesta crear: 'Otra vez @roberto? Usa el buscador por favor!' conUsuario: u3.
 	p3 agregarRespuesta: r31 .
+]
+
+{ #category : #examples }
+Cuoora >> example2 [ 
+	"ejemplo para la entrega"
+	|pedro diego juan preguntaPedro preguntaDiego topicoOO1 topicoUnitTest topicoSmalltak respuestaDiego respuestaPedro |
+	pedro := Usuario crear: 'pedro@cuoora.com' conPassword: '123456'.
+	diego := Usuario crear: 'diego@cuoora.com' conPassword: '123456'.
+	juan := Usuario crear: 'juan@cuoora.com' conPassword: '123456'.
+	juan seguirUsuario: diego.
+	pedro seguirUsuario: juan.
+	
+	topicoOO1 := Topico crear: 'OO1' conDescripcion: 'Orientacin a objectos 1'.
+	topicoUnitTest := Topico crear: 'Test de unidad' conDescripcion: 'Practica de software para verificar codigo'.
+	topicoSmalltak := Topico crear: 'Smalltalk' conDescripcion: 'Lenguage de programacion creado por Steve Jobs'.
+	
+	preguntaPedro := Pregunta crear: '¿Para qué sirve el método SetUp?' conDescripcion: ' Nam sed purus elit. Nam a pulvinar libero. Proin sit amet ullamcorper lorem, at aliquet nibh.
+
+' conTopicos: { topicoOO1 . topicoUnitTest } conUsuario: pedro.
+
+	respuestaDiego := Respuesta crear: 'Sirve para instanciar los objetos que son
+evaluados por el test en un único método y que se ejecute
+siempre antes de cada test.' conUsuario: diego.
+
+	preguntaPedro agregarRespuesta: respuestaDiego .
+	
+	
+	preguntaDiego := Pregunta crear: '¿Qué significa #messageNotUnderstood?' conDescripcion: 'Nunc in arcu arcu. Nunc luctus purus placerat, fermentum ipsum a, tempor tellus. Vestibulum ac tristique ante, at imperdiet odio.' conTopicos: { topicoOO1 . topicoSmalltak  } conUsuario: diego .
+	
+	respuestaPedro := Respuesta crear: 'Significa que el objeto que recibió el mensaje
+no encontró ningún método para ejecutar en respuesta.' conUsuario: pedro .
+	
+	preguntaDiego agregarRespuesta: respuestaPedro .
+	
+	self agregarUsuario: pedro .
+	self agregarUsuario: diego .
+	self agregarUsuario: juan .
+	
+	self agregarTopico: topicoOO1 .
+	self agregarTopico: topicoUnitTest .
+	self agregarTopico: topicoSmalltak .
+	
+	self agregarPregunta: preguntaPedro .
+	self agregarPregunta: preguntaDiego .
+	
 ]
 
 { #category : #initialization }

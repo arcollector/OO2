@@ -8,6 +8,7 @@ Class {
 Question >> renderQuestion: each withCanvas: aCanvas [
 	aCanvas
 		table style: 'width: 100%' ; with: [ self renderQuestionHeader: each withCanvas: aCanvas.
+			self renderQuestionContent: each withCanvas: aCanvas.
 			self renderQuestionTopics: each withCanvas: aCanvas.
 			aCanvas
 				tableRow: [ self renderQuestionAuthor: each withCanvas: aCanvas.
@@ -32,6 +33,13 @@ Question >> renderQuestionAuthor: each withCanvas: aCanvas [
 					aCanvas anchor
 						callback: [ self call: (UserSingle crear: each usuario) ];
 						with: each usuario nickname ] ]
+]
+
+{ #category : #rendering }
+Question >> renderQuestionContent: each withCanvas: aCanvas [
+	aCanvas
+		tableRow:
+			[ aCanvas tableData: [ aCanvas paragraph: each descripcion ] ]
 ]
 
 { #category : #hooks }
