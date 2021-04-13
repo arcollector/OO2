@@ -35,8 +35,9 @@ ProtectedPage >> renderLogoutNavigation: aCanvas [
 				style: 'width: 100%';
 				with: [ aCanvas
 						tableRow: [ aCanvas
-								tableData:
-									[ aCanvas paragraph: [ aCanvas strong: self session usuario nickname ] ].
+								tableData: [ aCanvas anchor
+										callback: [ self call: (UserSingle crear: self session usuario) ];
+										with: [ aCanvas strong: self session usuario nickname ] ].
 							aCanvas
 								tableData: [ aCanvas anchor
 										callback: [ self session limpiar.

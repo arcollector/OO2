@@ -34,6 +34,7 @@ UserSingle >> renderFollowAction: aCanvas [
 
 { #category : #rendering }
 UserSingle >> renderFollowingActions: aCanvas [
+	(self session usuario equals: usuario) ifTrue: [ ^ self ].
 	(self session usuario siguiendoUsuario: usuario)
 		ifTrue: [ self renderUnfollowAction: aCanvas ]
 		ifFalse: [ self renderFollowAction: aCanvas ]

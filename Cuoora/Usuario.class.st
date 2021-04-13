@@ -22,6 +22,11 @@ Usuario >> dejarUsuario: aUsuario [
 ]
 
 { #category : #'as yet unclassified' }
+Usuario >> equals: aUsuario [
+	^ self == aUsuario .
+]
+
+{ #category : #'as yet unclassified' }
 Usuario >> following [
 	^ following .
 ]
