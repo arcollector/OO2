@@ -34,6 +34,13 @@ UsuarioTest >> testDejarUsuario [
 ]
 
 { #category : #tests }
+UsuarioTest >> testEquals [ 
+	self assert: (u1 equals: u1).
+	self deny: (u1 equals: u2).
+	self deny: (u1 equals: nil).
+]
+
+{ #category : #tests }
 UsuarioTest >> testSeguirTopico [
 	|t|
 	t := Topico crear: 'Topico 1' conDescripcion: 'Topico 1'.
