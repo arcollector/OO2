@@ -21,8 +21,9 @@ Question >> renderQuestion: each withCanvas: aCanvas [
 { #category : #hooks }
 Question >> renderQuestionAnswersCount: each withCanvas: aCanvas [
 	^ aCanvas
-		tableData:
-			[ aCanvas paragraph: each totalRespuestas printString , ' respuestas' ]
+		tableData: [ aCanvas anchor
+				callback: [ self call: (QuestionSingle crear: each) ];
+				with: each totalRespuestas printString , ' respuestas' ]
 ]
 
 { #category : #hooks }
